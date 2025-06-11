@@ -30,19 +30,6 @@ public class StudentController {
 	@Autowired
 	StudentService ser;
 
-	@PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<String> registerStudent(@RequestParam("studentusername") String username,
-			@RequestParam("studentpassword") String password, @RequestParam("role") String role,
-			@RequestParam("image") MultipartFile image) {
-
-		try {
-			String message = ser.registerStudentWithImage(username, password, role, image);
-			return ResponseEntity.ok("Student registered successfully. Image: " + message);
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
-		}
-	}
-
 	@PostMapping("/savebook")
 	public String savebook(@RequestBody List<Student> book) {
 		return ser.savebook(book);
@@ -61,11 +48,6 @@ public class StudentController {
 	@GetMapping("/findbyid")
 	public Student findbyid(Long id) {
 		return ser.findbyid(id);
-	}
-
-	@PutMapping("/updatebyid")
-	public String updatebyid(Long id, Student newdata) {
-		return ser.updatebyid(id, newdata);
 	}
 
 	@PostMapping("/login")

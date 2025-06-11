@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,24 +30,18 @@ public class AdminController {
 
 	}
 
-	@GetMapping("/findall")
-	public List<Admin> findalld() {
-		return adminser.finall();
-	}
-
-	@GetMapping("/findbyid")
-	public Admin findbyid(Long id) {
+	@GetMapping("/findbyid/{id}")
+	public Admin findbyid(@PathVariable Long id) {
 		return adminser.findbyid(id);
 	}
 
-	@DeleteMapping("/deletebyid/{id}")
-	public String deletebyid(@PathVariable Long id) {
-		return adminser.deltebyid(id);
+	@PutMapping("/updatebyid/{id}")
+	public String updatebyid(@PathVariable Long id, @RequestBody Admin newdata) {
+		return adminser.updatebyid(id, newdata);
 	}
-	
+
 	@PostMapping("/adminlogin")
-	public Admin adminlogin(@RequestBody Admin admin)
-	{
+	public Admin adminlogin(@RequestBody Admin admin) {
 		return adminser.loginAdmin(admin.getAdminusername(), admin.getAdminpassword());
 	}
 

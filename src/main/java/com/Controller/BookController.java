@@ -49,31 +49,4 @@ public class BookController {
 		return bookser.findbytitle(title);
 	}
 
-	@PutMapping("/updatebyid/{id}")
-	public String updatebyid(@PathVariable Long id, @RequestBody Book newdata) {
-		return bookser.updatebyid(id, newdata);
-	}
-
-	@Autowired
-	private BookService bookService;
-
-	@PostMapping("/add/{adminId}")
-	public ResponseEntity<String> addBook(@PathVariable Long adminId, @RequestBody Book book) {
-		try {
-			String result = bookService.addBook(adminId, book);
-			return ResponseEntity.ok(result);
-		} catch (RuntimeException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-		}
-	}
-
-	@GetMapping("/admin/{adminId}")
-	public ResponseEntity<List<Book>> getBooksByAdmin(@PathVariable Long adminId) {
-		try {
-			List<Book> books = bookService.getBooksByAdmin(adminId);
-			return ResponseEntity.ok(books);
-		} catch (RuntimeException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-	}
 }

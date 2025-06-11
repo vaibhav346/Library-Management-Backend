@@ -1,5 +1,7 @@
 package com.Entity;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
@@ -21,7 +23,10 @@ public class Book {
 	String title;
 	String author;
 	String genre;
-	boolean availability;
+	String availability;
+	LocalDate borrowDate;
+	LocalDate returnDate;
+	String status = "PENDING";
 	String imageUrl;
 
 	@ManyToOne
@@ -38,14 +43,17 @@ public class Book {
 		super();
 	}
 
-	public Book(Long bookId, String title, String author, String genre, boolean availability, String imageUrl,
-			Student student, Admin admin) {
+	public Book(Long bookId, String title, String author, String genre, String availability, LocalDate borrowDate,
+			LocalDate returnDate, String status, String imageUrl, Student student, Admin admin) {
 		super();
 		this.bookId = bookId;
 		this.title = title;
 		this.author = author;
 		this.genre = genre;
 		this.availability = availability;
+		this.borrowDate = borrowDate;
+		this.returnDate = returnDate;
+		this.status = status;
 		this.imageUrl = imageUrl;
 		this.student = student;
 		this.admin = admin;
@@ -83,12 +91,36 @@ public class Book {
 		this.genre = genre;
 	}
 
-	public boolean getAvailability() {
+	public String getAvailability() {
 		return availability;
 	}
 
-	public void setAvailability(boolean availability) {
+	public void setAvailability(String availability) {
 		this.availability = availability;
+	}
+
+	public LocalDate getBorrowDate() {
+		return borrowDate;
+	}
+
+	public void setBorrowDate(LocalDate borrowDate) {
+		this.borrowDate = borrowDate;
+	}
+
+	public LocalDate getReturnDate() {
+		return returnDate;
+	}
+
+	public void setReturnDate(LocalDate returnDate) {
+		this.returnDate = returnDate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getImageUrl() {
@@ -114,70 +146,5 @@ public class Book {
 	public void setAdmin(Admin admin) {
 		this.admin = admin;
 	}
-
-//	
-//	public Book() {
-//		super();
-//	}
-//
-//	public Book(Long bookId, String title, String author, String genre, boolean availability, String imageUrl) {
-//		super();
-//		this.bookId = bookId;
-//		this.title = title;
-//		this.author = author;
-//		this.genre = genre;
-//		this.availability = availability;
-//		this.imageUrl = imageUrl;
-//	}
-//	
-//	
-//
-//	public Long getBookId() {
-//		return bookId;
-//	}
-//
-//	public void setBookId(Long bookId) {
-//		this.bookId = bookId;
-//	}
-//
-//	public String getTitle() {
-//		return title;
-//	}
-//
-//	public void setTitle(String title) {
-//		this.title = title;
-//	}
-//
-//	public String getAuthor() {
-//		return author;
-//	}
-//
-//	public void setAuthor(String author) {
-//		this.author = author;
-//	}
-//
-//	public String getGenre() {
-//		return genre;
-//	}
-//
-//	public void setGenre(String genre) {
-//		this.genre = genre;
-//	}
-//
-//	public boolean getAvailability() {
-//		return availability;
-//	}
-//
-//	public void setAvailability(boolean availability) {
-//		this.availability = availability;
-//	}
-//
-//	public String getImageUrl() {
-//		return imageUrl;
-//	}
-//
-//	public void setImageUrl(String imageUrl) {
-//		this.imageUrl = imageUrl;
-//	}
 
 }

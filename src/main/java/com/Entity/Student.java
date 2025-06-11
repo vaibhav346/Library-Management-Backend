@@ -24,24 +24,24 @@ public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
-	Long UserId;
+	Long sid;
 	@Column(unique = true, name = "Username")
 	String studentusername;
 	@Column(name = "Password")
 	String studentpassword;
-	String Role;
+	Long scontactno;
+	String semail;
+	String studentname;
+	String classname;
+	String address;
 	String imgurl;
 
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference(value = "student-books")
 	List<Book> blist;
 
-	@OneToMany(mappedBy = "borrowedbook", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
-	List<BorrowedBook> borrowedbooklist;
-
 	@ManyToOne
-	@JoinColumn(name = "Admin_id")
+	@JoinColumn(name = "aid")
 	@JsonBackReference
 	Admin stud;
 
@@ -49,21 +49,28 @@ public class Student {
 		super();
 	}
 
-	public Student(Long userId, String studentusername, String studentpassword, String role, String imgurl) {
+	public Student(Long sid, String studentusername, String studentpassword, Long scontactno, String semail,
+			String studentname, String classname, String address, String imgurl, List<Book> blist, Admin stud) {
 		super();
-		this.UserId = userId;
+		this.sid = sid;
 		this.studentusername = studentusername;
 		this.studentpassword = studentpassword;
-		this.Role = role;
+		this.scontactno = scontactno;
+		this.semail = semail;
+		this.studentname = studentname;
+		this.classname = classname;
+		this.address = address;
 		this.imgurl = imgurl;
+		this.blist = blist;
+		this.stud = stud;
 	}
 
-	public Long getUserId() {
-		return UserId;
+	public Long getSid() {
+		return sid;
 	}
 
-	public void setUserId(Long userId) {
-		this.UserId = userId;
+	public void setSid(Long sid) {
+		this.sid = sid;
 	}
 
 	public String getStudentusername() {
@@ -82,12 +89,44 @@ public class Student {
 		this.studentpassword = studentpassword;
 	}
 
-	public String getRole() {
-		return Role;
+	public Long getScontactno() {
+		return scontactno;
 	}
 
-	public void setRole(String role) {
-		this.Role = role;
+	public void setScontactno(Long scontactno) {
+		this.scontactno = scontactno;
+	}
+
+	public String getSemail() {
+		return semail;
+	}
+
+	public void setSemail(String semail) {
+		this.semail = semail;
+	}
+
+	public String getStudentname() {
+		return studentname;
+	}
+
+	public void setStudentname(String studentname) {
+		this.studentname = studentname;
+	}
+
+	public String getClassname() {
+		return classname;
+	}
+
+	public void setClassname(String classname) {
+		this.classname = classname;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getImgurl() {
@@ -96,6 +135,22 @@ public class Student {
 
 	public void setImgurl(String imgurl) {
 		this.imgurl = imgurl;
+	}
+
+	public List<Book> getBlist() {
+		return blist;
+	}
+
+	public void setBlist(List<Book> blist) {
+		this.blist = blist;
+	}
+
+	public Admin getStud() {
+		return stud;
+	}
+
+	public void setStud(Admin stud) {
+		this.stud = stud;
 	}
 
 }
