@@ -29,8 +29,16 @@ public class AdminService {
 		for (Student s : ad.getStudent()) {
 			s.setStud(ad);
 		}
-		admin.save(ad);
-		return "Admin save sucessfully";
+		for (Book b : ad.getBlist()) {
+			b.setAdmin(ad);
+		}
+		Admin existingadmin = admin.findByAdminusername(ad.getAdminusername()).orElse(null);
+		if (existingadmin != null) {
+			return "Please enter another username. This is one is already exists";
+		} else {
+			admin.save(ad);
+			return "Admin save sucessfully";
+		}
 	}
 
 	// 2. findby id admin

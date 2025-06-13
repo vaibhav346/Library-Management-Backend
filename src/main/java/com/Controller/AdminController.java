@@ -17,7 +17,7 @@ import com.Entity.Admin;
 import com.Service.AdminService;
 
 @RestController
-@RequestMapping("/Admin")
+@RequestMapping("/admin")
 @CrossOrigin(origins = "http://localhost:3000")
 public class AdminController {
 
