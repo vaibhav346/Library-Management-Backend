@@ -47,9 +47,9 @@ public class AdminService {
 	}
 
 	// 3. login admin
-	public Admin loginAdmin(String adminusername, String adminpassword) {
-		return admin.findByAdminusernameAndAdminpassword(adminusername, adminpassword)
-				.orElseThrow(() -> new RuntimeException("Invalid credentials"));
+	public Admin login(String username, String password) {
+		return admin.findByAdminusernameAndAdminpassword(username, password)
+				.orElseThrow(() -> new RuntimeException("Invalid Credentials"));
 	}
 
 	// 4. update and add student
