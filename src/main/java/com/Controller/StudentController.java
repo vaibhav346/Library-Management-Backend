@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,9 +31,9 @@ public class StudentController {
 	@Autowired
 	StudentService ser;
 
-	@PostMapping("/savebook")
-	public String savebook(@RequestBody List<Student> book) {
-		return ser.savebook(book);
+	@PostMapping("/savedtud")
+	public String savebook(@RequestBody Student stud) {
+		return ser.savestud(stud);
 	}
 
 	@GetMapping("/findall")
@@ -45,8 +46,8 @@ public class StudentController {
 		return ser.deletebyid(id);
 	}
 
-	@GetMapping("/findbyid")
-	public Student findbyid(Long id) {
+	@GetMapping("/findbyid/{id}")
+	public Student findbyid(@PathVariable Long id) {
 		return ser.findbyid(id);
 	}
 
@@ -56,10 +57,17 @@ public class StudentController {
 
 	}
 
-//	  @GetMapping("/login")
-//	    public Student login(Student loginRequest) {
-//	        Student student = ser.loginStudent(loginRequest.getStudentusername(), loginRequest.getStudentpassword());
-//	        return ser.loginStudent("Login successful for: " + student.getStudentusername(),student.getStudentpassword());
-//	    }
+	  @PutMapping("/update/{sid}")
+	    public ResponseEntity<Student> updateStudentById(
+	            @PathVariable Long sid,
+	            @RequestBody Student updatedStudent) {
+	        Student updated = ser.updateStudentById(sid, updatedStudent);
+	        return ResponseEntity.ok(updated);
+	    }
+	  
+	  @GetMapping("/findbyname/{name}")
+	  public List<Student> findbyname (@PathVariable String name){
+		  return ser.findbyname(name);
+	  }
 
 }

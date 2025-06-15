@@ -39,14 +39,28 @@ public class BookController {
 		return bookser.deletebyid(bookId);
 	}
 
-	@GetMapping("/findbyid")
-	public Book findbyid(Long id) {
+	@GetMapping("/findbyid/{id}")
+	public Book findbyid(@PathVariable Long id) {
 		return bookser.findbyid(id);
 	}
 
-	@GetMapping("/findbytitle")
-	public List<Book> findbytitle(String title) {
+	@GetMapping("/findbytitle/{title}")
+	public List<Book> findbytitle(@PathVariable String title) {
 		return bookser.findbytitle(title);
 	}
 
+	@PutMapping("/update/{id}")
+	public Book updateBook(@PathVariable Long id, @RequestBody Book updatedBook) {
+		return bookser.updateBook(id, updatedBook);
+	}
+
+	@PutMapping("/borrow/{id}")
+	public Book borrow(@PathVariable Long id) {
+		return bookser.borrowbook(id);
+	}
+
+	@PutMapping("/return/{id}")
+	public Book returnbook(@PathVariable Long id) {
+		return bookser.returnbook(id);
+	}
 }

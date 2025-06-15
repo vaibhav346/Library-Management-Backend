@@ -2,6 +2,7 @@ package com.Repository;
 
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +13,7 @@ import com.Entity.Student;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
+	public List<Student> findByStudentname (String studentname);
+	
 	Optional<Student> findByStudentusernameAndStudentpassword(String username, String password);
 }

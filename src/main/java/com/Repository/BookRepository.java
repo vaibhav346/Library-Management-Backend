@@ -12,6 +12,8 @@ import com.Entity.Book;
 public interface BookRepository extends JpaRepository<Book,Long> {
 	
 	
-	public List<Book> findByTitle(String name);
+	public List<Book> findByTitle(String title);
+	
+
 
 }

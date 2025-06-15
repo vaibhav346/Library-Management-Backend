@@ -18,6 +18,7 @@ public class BookService {
 	BookRepository bookrep;
 
 	public String save(Book book) {
+		book.setStatus("PENDING");
 		bookrep.save(book);
 		return "Book added sucessfully";
 	}
@@ -35,8 +36,45 @@ public class BookService {
 		return bookrep.findById(id).orElse(null);
 	}
 
-	public List<Book> findbytitle(String name) {
-		return bookrep.findByTitle(name);
+	public List<Book> findbytitle(String title) {
+		return bookrep.findByTitle(title);
+	}
+
+	public Book updateBook(Long bookId, Book updatedBook) {
+		Optional<Book> optionalBook = bookrep.findById(bookId);
+
+		if (optionalBook.isPresent()) {
+			Book existingBook = optionalBook.get();
+
+			// Update fields
+			existingBook.setTitle(updatedBook.getTitle());
+			existingBook.setAuthor(updatedBook.getAuthor());
+			existingBook.setGenre(updatedBook.getGenre());
+			existingBook.setAvailability(updatedBook.getAvailability());
+			existingBook.setBorrowDate(updatedBook.getBorrowDate());
+			existingBook.setReturnDate(updatedBook.getReturnDate());
+			existingBook.setStatus(updatedBook.getStatus());
+			existingBook.setImageUrl(updatedBook.getImageUrl());
+
+			return bookrep.save(existingBook);
+		} else {
+			throw new RuntimeException("Book not found with id: " + bookId);
+		}
+	}
+
+	// borrow book
+	public Book borrowbook(Long bookid) {
+		Book book = bookrep.findById(bookid).orElse(null);
+		book.setStatus("BORROW");
+
+		return bookrep.save(book);
+	}
+
+	// return book
+	public Book returnbook(Long bookid) {
+		Book book = bookrep.findById(bookid).orElse(null);
+		book.setStatus("RETURN");
+		return bookrep.save(book);
 	}
 
 }
